@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.recyclerview.widget.RecyclerView
 //import com.arellomobile.mvp.MvpAppCompatActivity
 //import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.mvptest.model.DefaultResponse
@@ -18,14 +19,14 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity(){
 //    @InjectPresenter
 //    lateinit var mainPresenter: MainPresenter
+    val adapter = DataAdapter()
     private var searchRequest: Call<DefaultResponse>?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val loadBtn=findViewById<Button>(R.id.loadBtn)
-        loadBtn.setOnClickListener {
-            load()
-        }
+        val recycler = findViewById<RecyclerView>(R.id.dataList)
+        recycler.adapter=adapter
+        load()
     }
     private fun cancelCurrentRequestIfNeeded() {
         if (searchRequest == null) {
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity(){
             Log.d("Request","Data is null")
             return
         }
-        else Toast.makeText(this,data.get(0).data?.selectedId.toString()+"Что-то пришло!",Toast.LENGTH_SHORT).show()
+        else //Toast.makeText(this,data.get(0).data?.selectedId.toString()+"Что-то пришло!",Toast.LENGTH_SHORT).show()
+            adapter.replaceItems(data)
     }
 }
