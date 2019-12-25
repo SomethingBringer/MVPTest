@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 class RestApi{
     companion object {
         private val URL = "https://chat.pryaniky.com/"
-        private val TIMEOUT_IN_SECONDS = 10
+        private val TIMEOUT_IN_SECONDS = 5
         private var sRestApi: RestApi? = null
 
         fun getInstance(): RestApi?{
@@ -33,13 +33,11 @@ class RestApi{
     }
     @NonNull
     private fun buildOkHttpClient(): OkHttpClient {
-        //Перехватчик запросов
         val networkLogInterceptor = HttpLoggingInterceptor()
         networkLogInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC)
 
         return OkHttpClient.Builder()
             .addInterceptor(networkLogInterceptor)
-            //Настройка таймаутов
             .connectTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
             .readTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
