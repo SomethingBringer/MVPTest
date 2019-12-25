@@ -14,6 +14,7 @@ import retrofit2.Response
 @InjectViewState
 class MainPresenter: MvpPresenter<MainView>() {
     private var searchRequest: Call<DefaultResponse>?=null
+    var adapter = DataAdapter(viewState)
     var view:Array<String>?=null
     var data:List<dataDto>?=null
     private fun cancelCurrentRequestIfNeeded() {
@@ -62,16 +63,16 @@ class MainPresenter: MvpPresenter<MainView>() {
         else //Toast.makeText(this,data.get(0).data?.selectedId.toString()+"Что-то пришло!",Toast.LENGTH_SHORT).show()
             adapter.replaceItems(data!!,view)
     }
-//    fun setTheAdapter(recyclerView: RecyclerView){
-//        recyclerView.adapter = adapter
-//    }
-    fun setTheData(adapter:DataAdapter){
+    fun setTheAdapter(recyclerView: RecyclerView){
+        recyclerView.adapter = adapter
+    }
+    fun setTheData(){
         if(data==null || view==null)
             loadData(adapter)
         else
             adapter.replaceItems(data!!,view)
     }
-    fun makeMessage(position: Int,adapter: DataAdapter){
+    fun makeMessage(position: Int){
         Log.d("Click","Making Message")
         viewState.showMessage("I am - "+adapter.data[position].name)
     }
