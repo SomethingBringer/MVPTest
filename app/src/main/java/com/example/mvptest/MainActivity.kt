@@ -72,6 +72,6 @@ class MainActivity : AppCompatActivity(){
             return
         }
         else //Toast.makeText(this,data.get(0).data?.selectedId.toString()+"Что-то пришло!",Toast.LENGTH_SHORT).show()
-            adapter.replaceItems(data)
+            adapter.replaceItems(data,view)
     }
 }

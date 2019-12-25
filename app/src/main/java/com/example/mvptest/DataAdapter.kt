@@ -30,27 +30,29 @@ class DataAdapter:RecyclerView.Adapter<DataAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item =data[position]
-        holder.name= item.name!!
-        if(item.data?.text!=null) holder.text.text= item.data!!.text
-        else holder.text.visibility=View.GONE
-        if(item.data?.url!=null) Glide.with(holder.pic).load(item.data!!.url).into(holder.pic)
-        else holder.pic.visibility=View.GONE
-        if(item.data?.variants!=null){
-            holder.rGroup.orientation=RadioGroup.VERTICAL
-            for(i in 0..item.data!!.variants!!.size-1)
-            {
-                var rb=RadioButton(holder.rGroup.context)
-                rb.text= item.data!!.variants?.get(i)!!.text
-                rb.id= item.data!!.variants?.get(i)!!.id!!
+        val item = data[position]
+        holder.name = item.name!!
+        if (item.data?.text != null) holder.text.text = item.data!!.text
+        else holder.text.visibility = View.GONE
+        if (item.data?.url != null) Glide.with(holder.pic).load(item.data!!.url).into(holder.pic)
+        else holder.pic.visibility = View.GONE
+        if (item.data?.variants != null) {
+            holder.rGroup.orientation = RadioGroup.VERTICAL
+            for (i in 0..item.data!!.variants!!.size - 1) {
+                var rb = RadioButton(holder.rGroup.context)
+                rb.text = item.data!!.variants?.get(i)!!.text
+                rb.id = item.data!!.variants?.get(i)!!.id!!
                 holder.rGroup.addView(rb)
             }
-        }
-        else holder.rGroup.visibility=View.GONE
+        } else holder.rGroup.visibility = View.GONE
     }
-    fun replaceItems(list:List<dataDto>){
-        for (i in 0..list.size-1){
-            data.add(list[i])
+
+    fun replaceItems(list: List<dataDto>, view: Array<String>?) {
+        for (i in view!!) {
+            for (j in 0..list.size - 1) {
+                if (list[j].name == i)
+                    data.add(list[j])
+            }
         }
         notifyDataSetChanged()
     }

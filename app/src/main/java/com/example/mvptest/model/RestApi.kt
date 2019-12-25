@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 class RestApi{
     companion object {
         private val URL = "https://chat.pryaniky.com/"
-        private val TIMEOUT_IN_SECONDS = 2
+        private val TIMEOUT_IN_SECONDS = 10
         private var sRestApi: RestApi? = null
 
         fun getInstance(): RestApi?{
